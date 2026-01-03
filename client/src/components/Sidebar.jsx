@@ -34,25 +34,27 @@ const Sidebar = ({ sidebar, setSidebar }) => {
     <div
       className={`
         w-80 bg-white border-r border-gray-200
-        flex flex-col justify-between
-        max-sm:absolute top-14 bottom-0
-        transition-all duration-300
-        ${sidebar ? 'translate-x-0' : 'max-sm:translate-x-full'}
+        flex flex-col
+       h-screen
+        
+        max-sm:absolute max-sm:top-14 max-sm:left-0 max-sm:bottom-0
+        transition-all duration-300 ease-in-out
+        ${sidebar ? 'translate-x-0' : 'max-sm:-translate-x-full'}
       `}
     >
-      {/* User */}
-      <div className="my-6 text-center border-b border-gray-200 pb-6 ">
+      {/* Header */}
+      <div className="py-6 text-center border-b border-gray-200">
         <img
           src={user.imageUrl}
           alt="User avatar"
-          className="w-12 h-12 rounded-full mx-auto cursor-pointer"
+          className="w-12 h-12 rounded-full mx-auto cursor-pointer hover:scale-105 transition"
           onClick={openUserProfile}
         />
-        <h1 className="mt-2 ">{user.fullName}</h1>
+        <h1 className="mt-2 text-sm font-medium">{user.fullName}</h1>
       </div>
 
-      {/* Navigation */}
-      <div className="px-2 space-y-1 flex-1">
+      {/* SCROLLABLE NAV */}
+      <div className="flex-1 overflow-y-auto px-2 py-2 space-y-1 ">
         {navLinks.map(({ to, label, Icon }) => (
           <NavLink
             key={to}
@@ -60,38 +62,59 @@ const Sidebar = ({ sidebar, setSidebar }) => {
             end={to === '/ai'}
             onClick={() => setSidebar(false)}
             className={({ isActive }) =>
-              `px-3.5 py-2.5 flex items-center gap-3 rounded-md text-sm
-               transition-all
-               ${
-                 isActive
-                   ? 'bg-gradient-to-r from-[#3c81f6] to-[#9234ea] text-white'
-                   : 'text-gray-600 hover:bg-gray-100'
-               }`
+              `
+              group px-3.5 py-2.5 flex items-center gap-3 rounded-md text-sm
+              transition-all duration-200
+              ${
+                isActive
+                  ? 'bg-gradient-to-r from-[#3c81f6] to-[#9234ea] text-white shadow-md'
+                  : 'text-gray-600 hover:bg-gray-100 hover:translate-x-1'
+              }
+              `
             }
           >
             {({ isActive }) => (
               <>
-                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : ''}`} />
-                {label}
+                <Icon
+                  className={`w-4 h-4 ${
+                    isActive
+                      ? 'text-white'
+                      : 'text-gray-500 group-hover:text-indigo-600'
+                  }`}
+                />
+                <span>{label}</span>
               </>
             )}
           </NavLink>
         ))}
       </div>
 
-      {/* Sign out */}
-      <div className="w-full border-t border-gray-200 p-4 px-7 flex items-center justify-between">
-        <div onClick={openUserProfile} className="flex gap-2 items-center cursor-pointer">
-          <img src={user.imageUrl} alt="" className='w-8 rounded-full'/>
-          <div className="">
-            <h1 className='text-sm font-medium'>{user.fullName}</h1>
-            <p className='text-xs text-gray-500'>
-              <Protect plan='premium' fallback='free'>Premium </Protect> 
+      {/* Footer */}
+      <div className="border-t border-gray-200 p-4 flex items-center justify-between">
+        <div
+          onClick={openUserProfile}
+          className="flex gap-2 items-center cursor-pointer"
+        >
+          <img
+            src={user.imageUrl}
+            alt=""
+            className="w-8 h-8 rounded-full"
+          />
+          <div>
+            <h1 className="text-sm font-medium">{user.fullName}</h1>
+            <p className="text-xs text-gray-500">
+              <Protect plan="premium" fallback="Free">
+                Premium
+              </Protect>{' '}
               Plan
             </p>
           </div>
         </div>
-        <LogOut onClick={signOut} className='w-4.5 text-gray-400 hover-text-gray-700 transition cursor-pointer'/>
+
+        <LogOut
+          onClick={signOut}
+          className="w-5 text-gray-400 hover:text-red-500 cursor-pointer"
+        />
       </div>
     </div>
   )

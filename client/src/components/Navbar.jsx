@@ -18,71 +18,74 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full bg-gray-100 dark:bg-gray-900 shadow-md z-[1000] text-gray-900 dark:text-white">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <>
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 w-full h-16 bg-gray-100 dark:bg-gray-900 shadow-md z-[1000] text-gray-900 dark:text-white">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
 
-        {/* Logo */}
-        <Link
-          to="/"
-          className="text-[1.5rem] font-bold text-gray-800 dark:text-gray-400"
-        >
-          QyntraAI
-        </Link>
+          {/* Logo */}
+          <Link
+            to="/"
+            className="text-[1.5rem] font-bold text-gray-800 dark:text-gray-400"
+          >
+            QyntraAI
+          </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex ml-8 flex-1">
-          <ul className="flex gap-8 items-center">
-            {navLinks.map(({ label, href }) => (
-              <li key={href}>
-                <Link
-                  to={href}
-                  className="hover:text-blue-600 dark:hover:text-blue-400"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Right Section */}
-        <div className="flex items-center gap-6 lg:gap-10">
-
-          {/* Search */}
-          <div className="hidden lg:flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-full px-3 py-1.5">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="bg-transparent text-sm outline-none text-gray-900 dark:text-white"
-            />
-            <Search size={18} className="text-gray-600 dark:text-gray-300" />
+          {/* Desktop Links */}
+          <div className="hidden md:flex ml-8 flex-1">
+            <ul className="flex gap-8 items-center">
+              {navLinks.map(({ label, href }) => (
+                <li key={href}>
+                  <Link
+                    to={href}
+                    className="hover:text-blue-600 dark:hover:text-blue-400"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Auth */}
-          {user ? (
-            <UserButton />
-          ) : (
-            <button
-              onClick={openSignIn}
-              className="hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              <User />
-            </button>
-          )}
+          {/* Right Section */}
+          <div className="flex items-center gap-6 lg:gap-10">
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X /> : <Menu />}
-          </button>
+            {/* Search (Desktop) */}
+            <div className="hidden lg:flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-full px-3 py-1.5">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="bg-transparent text-sm outline-none text-gray-900 dark:text-white"
+              />
+              <Search size={18} className="text-gray-600 dark:text-gray-300" />
+            </div>
+
+            {/* Auth */}
+            {user ? (
+              <UserButton />
+            ) : (
+              <button
+                onClick={openSignIn}
+                className="hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                <User />
+              </button>
+            )}
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <X /> : <Menu />}
+            </button>
+          </div>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-gray-100 dark:bg-gray-800 px-6 py-4 space-y-4">
+        <div className="md:hidden fixed top-16 left-0 w-full z-[999] bg-gray-100 dark:bg-gray-800 px-6 py-4 space-y-4 shadow-lg">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
@@ -94,6 +97,7 @@ const Navbar = () => {
             </Link>
           ))}
 
+          {/* Search (Mobile) */}
           <div className="flex items-center gap-2 bg-white dark:bg-gray-700 px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded">
             <input
               type="text"
@@ -104,7 +108,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-    </nav>
+    </>
   );
 };
 
