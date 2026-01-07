@@ -17,8 +17,8 @@ const Plan = () => {
       </div>
 
       {/* Pricing Cards */}
-      <div className="mt-14 max-sm:mx-8 mx-auto max-w-3xl">
-  <PricingTable />
+      <div className="mt-14 max-sm:mx-8 mx-auto max-w-3xl ">
+  <PricingTable  />
 </div>
 
       
