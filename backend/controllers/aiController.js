@@ -7,7 +7,7 @@ export const generateArticle=async (req,res) => {
         if(plan!='premium' && free_usage>=10){
             return res.json({success:false,message:'Free usage limit exceeded. Please upgrade to premium plan.'})
         }
-        
+
     } catch (error) {
         
     }
