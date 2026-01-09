@@ -10,10 +10,18 @@ import RemoveObject  from './pages/RemoveObject';
 import ReviewResume  from './pages/ReviewResume';
 import Community from './pages/Community';
 import GenerateImages from './pages/GenerateImages';
+import { useAuth } from '@clerk/clerk-react';
+import { useEffect } from 'react';
 
 const App = () => {
+  const {getToken}=useAuth();
+  useEffect(()=>{
+    getToken().then((token)=>console.log(token)
+    );
+  })
   return (
-    <Routes>
+    <div>
+      <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/ai' element={<Layout />}>
         <Route index element={<Dashboard />} />
@@ -26,6 +34,7 @@ const App = () => {
         <Route path='generate-images' element={<GenerateImages />} />
       </Route>
     </Routes>
+    </div>
   );
 }
 
